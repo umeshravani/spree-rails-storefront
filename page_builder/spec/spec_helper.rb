@@ -23,6 +23,8 @@ rescue LoadError
 end
 
 require 'rspec/rails'
+require 'rails/controller/testing'
+Rails::Controller::Testing.install
 require 'database_cleaner/active_record'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -38,6 +40,7 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/url_helpers'
 
 require 'spree/page_builder/testing_support/factories'
+require 'spree_posts/factories'
 
 RSpec.configure do |config|
   config.color = true

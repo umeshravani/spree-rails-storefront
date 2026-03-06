@@ -27,13 +27,19 @@ rescue LoadError
 end
 
 require 'rspec/rails'
+require 'rails/controller/testing'
+Rails::Controller::Testing.install
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+require 'capybara/rspec'
+require 'selenium-webdriver'
 require 'database_cleaner/active_record'
 require 'ffaker'
+require 'timecop'
+require 'rspec-activemodel-mocks'
 
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/factories'
@@ -50,6 +56,7 @@ require 'spree/testing_support/rspec_retry_config'
 require 'spree/testing_support/image_helpers'
 
 require 'spree/page_builder/testing_support/factories'
+require 'spree_posts/factories'
 
 require 'spree/core/controller_helpers/strong_parameters'
 
