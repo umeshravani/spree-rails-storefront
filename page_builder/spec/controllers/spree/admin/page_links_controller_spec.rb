@@ -33,7 +33,8 @@ RSpec.describe Spree::Admin::PageLinksController, type: :controller do
     end
 
     context 'for featured taxons' do
-      let!(:taxon) { create(:taxon, taxonomy: store.taxonomies.first) }
+      let(:taxonomy) { store.taxonomies.first }
+      let!(:taxon) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
       let!(:page_section) { create(:featured_taxons_page_section, pageable: page) }
 
       it 'creates a new page link' do

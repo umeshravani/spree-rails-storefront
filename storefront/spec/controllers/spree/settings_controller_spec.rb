@@ -149,7 +149,8 @@ describe Spree::SettingsController, type: :controller do
             end
 
             context 'when referer is a taxon page' do
-              let!(:taxon) { create(:taxon, name: 'Category', taxonomy: store.taxonomies.first) }
+              let(:taxonomy) { create(:taxonomy, store: store) }
+              let!(:taxon) { create(:taxon, name: 'Category', taxonomy: taxonomy) }
 
               before do
                 Mobility.with_locale(:fr) { taxon.update!(name: 'Catégorie', permalink: 'categorie') }

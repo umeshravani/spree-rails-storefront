@@ -7,7 +7,8 @@ RSpec.describe Spree::Products::AutoMatchTaxons do
   let(:product) { create(:product, stores: [store]) }
 
   context 'for a featured taxon' do
-    let!(:taxon) { create(:automatic_taxon, taxonomy: store.taxonomies.first) }
+    let(:taxonomy) { create(:taxonomy, store: store) }
+    let!(:taxon) { create(:automatic_taxon, taxonomy: taxonomy) }
     let!(:featured_taxon) { Spree::PageSections::FeaturedTaxon.create!(pageable: Spree::Page.find_by(name: 'Homepage')) }
 
     before do
