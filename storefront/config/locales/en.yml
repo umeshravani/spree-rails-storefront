@@ -1,9 +1,29 @@
 ---
 en:
   spree:
+    admin:
+      checkout_settings:
+        checkout_links:
+          description: Links to these pages will be displayed in the checkout footer.
+          label: Checkout links
+        checkout_message_description: Visible to your customers on the checkout page in the right sidebar.
+        countries_managed_by_markets_html: Countries and shipping zones are managed through %{link}.
+        guest_checkout:
+          description: Allow customers to checkout without creating an account.
+          label: Allow guest checkout
+        special_instructions:
+          description: Allow customers to add special instructions to their order.
+          label: Display the special instructions field
+      markets:
+        list: Markets
+      store_form:
+        company_field:
+          description: It shows the company field on the address form in the My Account section and on the checkout address step.
+          label: Display the company address field
     all_posts: All Posts
     all_posts_with_tag: All Posts tagged with %{tag}
     blog: Blog
+    order_already_updated: The order has already been updated.
     storefront:
       account:
         change_password: Change password

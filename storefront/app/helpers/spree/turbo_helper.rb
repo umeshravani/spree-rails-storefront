@@ -1,8 +1,10 @@
 module Spree
   module TurboHelper
     def spree_turbo_update_flashes
-      turbo_stream.update 'flash' do
-        render 'spree/shared/flashes'
+      turbo_stream.update 'flashes' do
+        flash.map do |key, value|
+          render partial: 'spree/shared/flash', locals: { key: key, value: value, for_template: false }
+        end.join.html_safe
       end
     end
 
