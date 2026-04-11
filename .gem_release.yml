@@ -1,0 +1,51 @@
+# gem-release configuration for the spree-rails-storefront meta-repo.
+#
+# This repository ships two gems that share a single version file
+# (lib/spree_storefront/version.rb). Both gemspecs `require_relative` it,
+# so there is exactly one source of truth for the version number.
+#
+# Two important consequences drive the layout below:
+#
+# 1. `gem bump --recurse` would visit each gem directory and bump the same
+#    shared file twice (e.g. 5.4.0 -> 5.4.1 -> 5.4.2). So we bump the
+#    shared file exactly once, from one gem directory, with --file pointing
+#    at the repo-root version file.
+#
+# 2. `gem release --recurse` recursively walks every *.gemspec under the
+#    repo, which would include every gem under vendor/bundle/. That would
+#    try to republish hundreds of third-party gems to rubygems.org. So we
+#    NEVER set `release.recurse: true` — releases always name the gems
+#    explicitly (`gem release spree_storefront spree_page_builder`).
+#
+# The Rakefile at the repo root wraps these conventions and exposes:
+#
+#   rake release:bump[patch]  # bump the shared version file + commit
+#   rake release:publish      # build + push both gems, tag, push tag
+#   rake release[patch]       # bump -> publish in one step
+#
+# The settings below apply to any direct `gem bump` / `gem release` /
+# `gem tag` invocation from the repo root as well.
+
+bump:
+  # Path to the shared version file, relative to the directory `gem bump`
+  # chdir's into. gem-release changes into each gemspec's directory before
+  # bumping, so from storefront/ or page_builder/ this resolves to the
+  # repo-root lib/spree_storefront/version.rb.
+  file: ../lib/spree_storefront/version.rb
+  commit: true
+  message: 'Bump version to %{version}'
+  push: false
+  sign: false
+  # Never recurse — see note (1) above.
+  recurse: false
+
+release:
+  # Never recurse — see note (2) above. The Rakefile always names the gems
+  # explicitly.
+  recurse: false
+  tag: false
+
+tag:
+  recurse: false
+  push: true
+  sign: false
